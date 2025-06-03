@@ -7,6 +7,7 @@ import { Box } from "../../ui/Box";
 
 import Loader from "../../ui/Loader";
 import Image from "../../ui/Image";
+import { useEffect } from "react";
 
 function LiveCategories() {
   const { isLoading, data } = useQuery({
@@ -15,6 +16,10 @@ function LiveCategories() {
     retry: false,
     staleTime: Infinity,
   });
+  useEffect(() => {
+    document.title = "Live Categories";
+    return () => (document.title = "Live TV");
+  }, []);
   if (isLoading) return <Loader />;
   return (
     <>

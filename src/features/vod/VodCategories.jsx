@@ -9,6 +9,7 @@ import Loader from "../../ui/Loader";
 import Image from "../../ui/Image";
 import SortBy from "../../ui/Menu";
 import Menu from "../../ui/Menu";
+import { useEffect } from "react";
 
 function VodCategories() {
   const { isLoading, data } = useQuery({
@@ -17,8 +18,11 @@ function VodCategories() {
     retry: false,
     staleTime: Infinity,
   });
+  useEffect(() => {
+    document.title = "VOD | SERIES";
+    return () => (document.title = "Live TV");
+  }, []);
   if (isLoading) return <Loader />;
-  console.log(data.sort((a, b) => (a.title < b.title ? -1 : 1)));
   return (
     <>
       <div className="header">

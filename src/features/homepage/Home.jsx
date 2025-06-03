@@ -3,6 +3,7 @@ import { generateToken } from "../../services/apiIptv";
 import { Heading } from "../../ui/Heading";
 
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const StyledItem = styled.div`
   min-height: 50dvh;

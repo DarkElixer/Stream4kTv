@@ -6,7 +6,7 @@ import { Heading } from "../../ui/Heading";
 import { GridBox } from "../../ui/GridBox";
 import { Footer } from "../../ui/Footer";
 import { Box } from "../../ui/Box";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import MiniLoader from "../../ui/MiniLoader";
 import Loader from "../../ui/Loader";
@@ -21,9 +21,18 @@ function LiveChannels() {
     categoryIdFromURL,
     getAllCategoriesChannel
   );
+
   const categoryName =
     categoryId.slice(0, categoryId.lastIndexOf("-")).toUpperCase() +
     " LIVE CHANNELS";
+  useEffect(() => {
+    document.title = `Live Categories | ${categoryId
+      .slice(0, categoryId.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [categoryId]);
   return (
     <>
       <div className="header">

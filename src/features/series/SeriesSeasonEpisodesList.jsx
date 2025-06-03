@@ -2,7 +2,7 @@ import { useInfiniteSeriesScrolling } from "./useInfiniteSeriesScrolling";
 import { portal } from "../../constants/servicesConstants";
 import { getOrignalNmae, preLen } from "../../util/helper";
 import { getSeriesOrMovie } from "../../services/apiVod";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Heading } from "../../ui/Heading";
 import { GridBox } from "../../ui/GridBox";
@@ -23,7 +23,6 @@ function SeriesSeasonEpisodesList() {
     start: 1,
     end: Infinity,
   });
-  console.log(selectedEpisodeRange);
   const seasonNoFromURL = seasonNo.split("-").pop();
   const seriesArray = seriesName.split("-");
   const seriesIdFromURL = seriesArray[seriesArray.length - 1];
@@ -41,6 +40,20 @@ function SeriesSeasonEpisodesList() {
       getSeriesOrMovie,
       { sort, selectedEpisodeRange }
     );
+  useEffect(() => {
+    document.title = `${seriesName
+      .replace(/[^a-zA-Z-]/g, "")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
+      .split("-")
+      .join(" ")
+      .toUpperCase()} | ${seasonNo
+      .slice(0, seasonNo.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [seasonNo, seriesName]);
   if (status !== "pending") {
     total_items.current = data.pages[0].data[0].series.length ?? 0;
   }

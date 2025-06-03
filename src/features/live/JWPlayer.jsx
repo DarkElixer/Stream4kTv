@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import ReactJwPlayer from "react-jw-player";
 import Loader from "../../ui/Loader";
+import { useEffect } from "react";
 
 function JWPlayer() {
   const { channelname } = useParams();
@@ -11,8 +12,17 @@ function JWPlayer() {
     queryKey: ["channelLink", channelname],
     queryFn: () => getLiveChannelLink(`ffrt http://localhost/ch/${channelId}`),
   });
+  useEffect(() => {
+    document.title = `Playing | ${channelname
+      .slice(0, channelname.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [channelname]);
   if (isLoading) return <Loader />;
   const channelLink = data?.data;
+
   return (
     <div className="player">
       <ReactJwPlayer

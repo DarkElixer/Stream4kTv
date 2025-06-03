@@ -7,7 +7,7 @@ import { Heading } from "../../ui/Heading";
 import { GridBox } from "../../ui/GridBox";
 import { Footer } from "../../ui/Footer";
 import { Box } from "../../ui/Box";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import MiniLoader from "../../ui/MiniLoader";
 import StyledSelect from "../../ui/Select";
@@ -30,6 +30,14 @@ function SeriesSeasonsList() {
       getSeriesOrMovie,
       { sort }
     );
+  useEffect(() => {
+    document.title = `VOD | ${seriesName
+      .slice(0, seriesName.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [seriesName]);
   if (status !== "pending") {
     total_items.current = data.pages[0].total_items ?? 0;
   }

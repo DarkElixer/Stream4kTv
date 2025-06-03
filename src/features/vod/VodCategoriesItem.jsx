@@ -6,7 +6,7 @@ import { GridBox } from "../../ui/GridBox";
 import { Heading } from "../../ui/Heading";
 import { Footer } from "../../ui/Footer";
 import { Box } from "../../ui/Box";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { portal } from "../../constants/servicesConstants";
 import MiniLoader from "../../ui/MiniLoader";
 import Loader from "../../ui/Loader";
@@ -17,6 +17,14 @@ function VodCategoriesItem() {
   const categoryIdFromURL = categoryId.split("-").pop();
   const { ref, data, isFetchingNextPage, status, hasNextPage } =
     useInfiniteScrolling("vod", categoryIdFromURL, getAllCategoriesChannel);
+  useEffect(() => {
+    document.title = `VOD | ${categoryId
+      .slice(0, categoryId.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [categoryId]);
   return (
     <>
       <div className="header">

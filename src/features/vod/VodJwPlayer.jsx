@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import ReactJwPlayer from "react-jw-player";
 import Loader from "../../ui/Loader";
+import { useEffect } from "react";
 
 function VodJwPlayer() {
   const { movieName } = useParams();
@@ -12,7 +13,14 @@ function VodJwPlayer() {
     queryFn: () => getMovieLiveLink(movieId),
     cacheTime: Infinity,
   });
-
+  useEffect(() => {
+    document.title = `MOVIE | ${movieName
+      .slice(0, movieName.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [movieName]);
   if (isLoading) return <Loader />;
   return (
     <div className="player">

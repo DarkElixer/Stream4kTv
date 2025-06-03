@@ -5,6 +5,7 @@ import "../../styles/player.css";
 
 import ReactJwPlayer from "react-jw-player";
 import Loader from "../../ui/Loader";
+import { useEffect } from "react";
 
 function SeriesJwPlayer() {
   const { seriesName, seasonNo, episodeNo } = useParams();
@@ -26,7 +27,24 @@ function SeriesJwPlayer() {
       }),
     cacheTime: Infinity,
   });
-
+  useEffect(() => {
+    document.title = `${seriesName
+      .replace(/[^a-zA-Z-]/g, "")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
+      .split("-")
+      .join(" ")
+      .toUpperCase()} | ${seasonNo
+      .slice(0, seasonNo.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()} | ${episodeNo
+      .slice(0, episodeNo.lastIndexOf("-"))
+      .split("-")
+      .join(" ")
+      .toUpperCase()}`;
+    return () => (document.title = "Live TV");
+  }, [seasonNo, seriesName, episodeNo]);
   if (isLoading) return <Loader />;
   return (
     <div className="player">
