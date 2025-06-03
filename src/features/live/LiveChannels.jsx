@@ -26,7 +26,7 @@ function LiveChannels() {
     " LIVE CHANNELS";
   return (
     <>
-      <div className="heading--secondary">
+      <div className="header">
         <Heading as="h2" $type="secondary">
           {categoryName}
         </Heading>

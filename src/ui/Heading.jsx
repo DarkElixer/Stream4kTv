@@ -54,7 +54,7 @@ export const Heading = styled.h1`
   display: inline-block;
   line-height: 1.6;
   background-color: black;
-  flex: 1 1 fit-content;
+  flex: 1 1 60%;
   z-index: -1000;
   ${(prop) => styles[prop.$type]}
   ${(prop) => variation[prop.$variation]}

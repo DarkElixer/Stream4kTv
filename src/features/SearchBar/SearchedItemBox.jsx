@@ -23,7 +23,7 @@ function SearchedItemBox() {
   const total_items = +data.pages[0].total_items;
   return (
     <>
-      <div className="heading--secondary">
+      <div className="header">
         <Heading as="h2" $type="secondary" $variation="small">
           {`Showing Results for: ${query}`}
         </Heading>

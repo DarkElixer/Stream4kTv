@@ -21,7 +21,7 @@ function VodCategories() {
   console.log(data.sort((a, b) => (a.title < b.title ? -1 : 1)));
   return (
     <>
-      <div className="heading--secondary">
+      <div className="header">
         <Heading as="h2" $type="secondary">
           Vod Categories
         </Heading>

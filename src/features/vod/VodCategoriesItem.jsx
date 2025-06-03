@@ -19,7 +19,7 @@ function VodCategoriesItem() {
     useInfiniteScrolling("vod", categoryIdFromURL, getAllCategoriesChannel);
   return (
     <>
-      <div className="heading--secondary">
+      <div className="header">
         <Heading as="h2" $type="secondary">
           {getOrignalNmae(categoryId)}
         </Heading>
